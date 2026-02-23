@@ -1,0 +1,5 @@
+{
+  "name": "GeoCluster - Aek Kuasan GIS",
+  "description": "A comprehensive Geographic Information System for analyzing and clustering infrastructure facilities in Aek Kuasan using K-Means clustering algorithm. Built with React, Leaflet, and Tailwind CSS.",
+  "requestFramePermissions": []
+}

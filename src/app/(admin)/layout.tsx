@@ -25,7 +25,7 @@ export default function AdminLayout({
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center flex-col gap-4">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-        <p className="text-slate-400 text-sm animate-pulse">Verifying Access...</p>
+        <p className="text-slate-400 text-sm animate-pulse">Memverifikasi Akses...</p>
       </div>
     );
   }

@@ -29,7 +29,7 @@ export default function SignupPage() {
     setIsSubmitting(true);
 
     if (password.length < 6) {
-      setError('Password must be at least 6 characters');
+      setError('Kata sandi harus minimal 6 karakter');
       setIsSubmitting(false);
       return;
     }
@@ -39,7 +39,7 @@ export default function SignupPage() {
     if (success) {
       router.replace('/dashboard');
     } else {
-      setError('Email already exists or invalid');
+      setError('Email sudah ada atau tidak valid');
       setIsSubmitting(false);
     }
   };
@@ -69,10 +69,10 @@ export default function SignupPage() {
             
             <div className="space-y-6 max-w-lg mt-12">
                 <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                    Join the <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Community</span>
+                    Bergabung dengan <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Komunitas</span>
                 </h1>
                 <p className="text-slate-400 text-lg leading-relaxed">
-                    Create an account to start analyzing infrastructure data, creating clusters, and contributing to the Aek Kuasan GIS platform.
+                    Buat akun untuk mulai menganalisis data infrastruktur, membuat klaster, dan berkontribusi pada platform GIS Aek Kuasan.
                 </p>
             </div>
         </div>
@@ -93,8 +93,8 @@ export default function SignupPage() {
             </div>
 
             <div className="text-center lg:text-left">
-                <h2 className="text-3xl font-bold text-slate-900">Create Account</h2>
-                <p className="text-slate-500 mt-2">Sign up to get started with GeoCluster.</p>
+                <h2 className="text-3xl font-bold text-slate-900">Buat Akun</h2>
+                <p className="text-slate-500 mt-2">Daftar untuk memulai dengan GeoCluster.</p>
             </div>
 
             {error && (
@@ -106,7 +106,7 @@ export default function SignupPage() {
 
             <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="space-y-1.5">
-                    <label className="block text-sm font-medium text-slate-700">Full Name</label>
+                    <label className="block text-sm font-medium text-slate-700">Nama Lengkap</label>
                     <div className="relative group">
                         <User className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" size={18} />
                         <input 
@@ -121,7 +121,7 @@ export default function SignupPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                    <label className="block text-sm font-medium text-slate-700">Email Address</label>
+                    <label className="block text-sm font-medium text-slate-700">Alamat Email</label>
                     <div className="relative group">
                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" size={18} />
                         <input 
@@ -136,7 +136,7 @@ export default function SignupPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                    <label className="block text-sm font-medium text-slate-700">Password</label>
+                    <label className="block text-sm font-medium text-slate-700">Kata Sandi</label>
                     <div className="relative group">
                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" size={18} />
                         <input 
@@ -148,7 +148,7 @@ export default function SignupPage() {
                             onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
-                    <p className="text-xs text-slate-400 pl-1">Must be at least 6 characters</p>
+                    <p className="text-xs text-slate-400 pl-1">Harus minimal 6 karakter</p>
                 </div>
 
                 <div className="pt-2">
@@ -157,8 +157,8 @@ export default function SignupPage() {
                         disabled={isSubmitting}
                         className={`w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-blue-600/20 active:scale-[0.98] ${isSubmitting ? 'opacity-70 cursor-wait' : ''}`}
                     >
-                        {isSubmitting ? 'Creating Account...' : (
-                            <>Create Account <ArrowRight size={18} /></>
+                        {isSubmitting ? 'Membuat Akun...' : (
+                            <>Buat Akun <ArrowRight size={18} /></>
                         )}
                     </button>
                 </div>
@@ -166,7 +166,7 @@ export default function SignupPage() {
 
             <div className="text-center pt-4 border-t border-slate-100">
                 <p className="text-sm text-slate-500">
-                    Already have an account? <Link href="/login" className="text-blue-600 font-medium hover:underline">Sign In</Link>
+                    Sudah punya akun? <Link href="/login" className="text-blue-600 font-medium hover:underline">Masuk</Link>
                 </p>
             </div>
         </div>

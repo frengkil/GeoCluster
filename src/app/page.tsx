@@ -18,20 +18,20 @@ export default function LandingPage() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
               </span>
-              GIS Analysis System v1.0
+              Sistem Analisis GIS v1.0
             </div>
             <h1 className="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight">
-              Smarter Infrastructure Planning for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Aek Kuasan</span>
+              Perencanaan Infrastruktur Cerdas untuk <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">Aek Kuasan</span>
             </h1>
             <p className="text-lg text-slate-600 max-w-lg leading-relaxed">
-              Leverage the power of K-Means clustering and spatial analysis to optimize facility distribution across the district. Visualize, analyze, and report with precision.
+              Manfaatkan kekuatan klasterisasi K-Means dan analisis spasial untuk mengoptimalkan distribusi fasilitas di seluruh distrik. Visualisasikan, analisis, dan laporkan dengan presisi.
             </p>
             <div className="flex gap-4 pt-4">
               <Link href="/dashboard" className="flex items-center gap-2 bg-slate-900 text-white px-8 py-3 rounded-xl hover:bg-slate-800 transition-all hover:scale-105 shadow-lg shadow-slate-200">
-                Open Dashboard <ArrowRight size={18} />
+                Buka Dashboard <ArrowRight size={18} />
               </Link>
               <button className="px-8 py-3 rounded-xl border border-slate-300 hover:bg-slate-50 transition-colors text-slate-700 font-medium">
-                Learn More
+                Pelajari Lebih Lanjut
               </button>
             </div>
           </div>
@@ -48,8 +48,8 @@ export default function LandingPage() {
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-green-100 rounded-lg text-green-600"><BarChart3 size={20} /></div>
                         <div>
-                            <p className="text-xs text-slate-500 uppercase font-bold">Total Facilities</p>
-                            <p className="text-xl font-bold text-slate-900">124 Units</p>
+                            <p className="text-xs text-slate-500 uppercase font-bold">Total Fasilitas</p>
+                            <p className="text-xl font-bold text-slate-900">124 Unit</p>
                         </div>
                     </div>
                 </div>
@@ -62,15 +62,15 @@ export default function LandingPage() {
       <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">Powerful Spatial Analysis</h2>
-            <p className="text-slate-600">Built with modern web technologies to support decision making in regional development.</p>
+            <h2 className="text-3xl font-bold text-slate-900 mb-4">Analisis Spasial yang Kuat</h2>
+            <p className="text-slate-600">Dibangun dengan teknologi web modern untuk mendukung pengambilan keputusan dalam pengembangan daerah.</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { icon: Map, title: "Interactive Mapping", desc: "Detailed visualization of villages and facilities using advanced vector maps." },
-              { icon: Layers, title: "K-Means Clustering", desc: "Machine learning algorithms to group facilities and identify coverage gaps." },
-              { icon: ShieldCheck, title: "Data Integrity", desc: "Robust data management for tracking facility conditions and history." }
+              { icon: Map, title: "Pemetaan Interaktif", desc: "Visualisasi detail desa dan fasilitas menggunakan peta vektor canggih." },
+              { icon: Layers, title: "Klasterisasi K-Means", desc: "Algoritma pembelajaran mesin untuk mengelompokkan fasilitas dan mengidentifikasi kesenjangan cakupan." },
+              { icon: ShieldCheck, title: "Integritas Data", desc: "Manajemen data yang kuat untuk melacak kondisi dan riwayat fasilitas." }
             ].map((feature, idx) => (
               <div key={idx} className="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-lg transition-shadow">
                 <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 mb-6">
@@ -91,7 +91,7 @@ export default function LandingPage() {
                 <Layers className="text-white" size={24} />
                 <span className="text-white font-bold text-lg">GeoCluster</span>
               </div>
-              <p className="text-sm">© 2024 Aek Kuasan Infrastructure Analysis. All rights reserved.</p>
+              <p className="text-sm">© 2024 Analisis Infrastruktur Aek Kuasan. Hak cipta dilindungi.</p>
           </div>
       </footer>
     </div>

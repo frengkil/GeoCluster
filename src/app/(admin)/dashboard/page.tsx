@@ -10,7 +10,7 @@ import { Building2, AlertTriangle, CheckCircle } from 'lucide-react';
 // Dynamically import GisMap to avoid SSR issues with Leaflet
 const GisMap = dynamic(() => import('../../../components/GisMap'), {
   ssr: false,
-  loading: () => <div className="h-full w-full bg-slate-100 animate-pulse rounded-xl flex items-center justify-center text-slate-400">Loading Map...</div>
+  loading: () => <div className="h-full w-full bg-slate-100 animate-pulse rounded-xl flex items-center justify-center text-slate-400">Memuat Peta...</div>
 });
 
 const StatCard: React.FC<{ title: string; value: string | number; icon: any; color: string }> = ({ title, value, icon: Icon, color }) => (
@@ -30,8 +30,8 @@ export default function DashboardPage() {
 
   // Compute Stats
   const total = facilities.length;
-  const goodCondition = facilities.filter(f => f.condition === 'Good').length;
-  const poorCondition = facilities.filter(f => f.condition === 'Poor').length;
+  const goodCondition = facilities.filter(f => f.condition === 'Baik').length;
+  const poorCondition = facilities.filter(f => f.condition === 'Buruk').length;
   
   // Data for Charts
   const categoryData = Object.values(FacilityCategory).map(cat => ({
@@ -40,23 +40,23 @@ export default function DashboardPage() {
   })).filter(d => d.value > 0);
 
   const conditionData = [
-    { name: 'Good', value: goodCondition, color: '#22c55e' },
-    { name: 'Fair', value: facilities.length - goodCondition - poorCondition, color: '#eab308' },
-    { name: 'Poor', value: poorCondition, color: '#ef4444' }
+    { name: 'Baik', value: goodCondition, color: '#22c55e' },
+    { name: 'Cukup', value: facilities.length - goodCondition - poorCondition, color: '#eab308' },
+    { name: 'Buruk', value: poorCondition, color: '#ef4444' }
   ];
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-800">Dashboard Overview</h1>
-        <p className="text-slate-500">Real-time statistics of infrastructure in Aek Kuasan.</p>
+        <h1 className="text-2xl font-bold text-slate-800">Ringkasan Dashboard</h1>
+        <p className="text-slate-500">Statistik infrastruktur real-time di Aek Kuasan.</p>
       </div>
 
       {/* Stats Row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <StatCard title="Total Facilities" value={total} icon={Building2} color="bg-blue-500" />
-        <StatCard title="In Good Condition" value={goodCondition} icon={CheckCircle} color="bg-green-500" />
-        <StatCard title="Requires Attention" value={poorCondition} icon={AlertTriangle} color="bg-red-500" />
+        <StatCard title="Total Fasilitas" value={total} icon={Building2} color="bg-blue-500" />
+        <StatCard title="Kondisi Baik" value={goodCondition} icon={CheckCircle} color="bg-green-500" />
+        <StatCard title="Perlu Perhatian" value={poorCondition} icon={AlertTriangle} color="bg-red-500" />
       </div>
 
       {/* Main Content Grid */}
@@ -64,8 +64,8 @@ export default function DashboardPage() {
         {/* Map Preview */}
         <div className="bg-white p-4 rounded-xl shadow-sm border border-slate-200 h-[400px] lg:col-span-2">
             <div className="flex justify-between items-center mb-4">
-                <h3 className="font-semibold text-slate-800">Geographic Distribution</h3>
-                <span className="text-xs px-2 py-1 bg-slate-100 rounded text-slate-500">Live Map</span>
+                <h3 className="font-semibold text-slate-800">Distribusi Geografis</h3>
+                <span className="text-xs px-2 py-1 bg-slate-100 rounded text-slate-500">Peta Langsung</span>
             </div>
             <div className="h-[320px]">
                 <GisMap facilities={facilities} zoom={12} />
@@ -74,7 +74,7 @@ export default function DashboardPage() {
 
         {/* Charts */}
         <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 h-[350px]">
-          <h3 className="font-semibold text-slate-800 mb-4">Facilities by Category</h3>
+          <h3 className="font-semibold text-slate-800 mb-4">Fasilitas berdasarkan Kategori</h3>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={categoryData} margin={{ top: 0, right: 0, left: -20, bottom: 20 }}>
               <XAxis dataKey="name" tick={{ fontSize: 10 }} angle={-25} textAnchor="end" />
@@ -86,7 +86,7 @@ export default function DashboardPage() {
         </div>
 
         <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-200 h-[350px]">
-          <h3 className="font-semibold text-slate-800 mb-4">Condition Status</h3>
+          <h3 className="font-semibold text-slate-800 mb-4">Status Kondisi</h3>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie

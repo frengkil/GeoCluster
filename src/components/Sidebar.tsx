@@ -50,13 +50,13 @@ export default function Sidebar({ children }: { children?: React.ReactNode }) {
           <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
             GeoCluster
           </h1>
-          <p className="text-xs text-slate-400 mt-1">Aek Kuasan Analysis</p>
+          <p className="text-xs text-slate-400 mt-1">Analisis Aek Kuasan</p>
         </div>
         <nav className="flex-1 p-4 space-y-2">
-          <NavItem to="/" icon={Home} label="Home" active={pathname === '/'} />
+          <NavItem to="/" icon={Home} label="Beranda" active={pathname === '/'} />
           <NavItem to="/dashboard" icon={LayoutDashboard} label="Dashboard" active={pathname === '/dashboard'} />
-          <NavItem to="/clustering" icon={PieChart} label="K-Means Analysis" active={pathname === '/clustering'} />
-          <NavItem to="/data" icon={Database} label="Facility Data" active={pathname === '/data'} />
+          <NavItem to="/clustering" icon={PieChart} label="Analisis K-Means" active={pathname === '/clustering'} />
+          <NavItem to="/data" icon={Database} label="Data Fasilitas" active={pathname === '/data'} />
         </nav>
         <div className="p-4 border-t border-slate-700">
           <div className="bg-slate-800 rounded-lg p-3 text-xs text-slate-400 flex flex-col gap-2">
@@ -71,10 +71,10 @@ export default function Sidebar({ children }: { children?: React.ReactNode }) {
             </div>
             <div className="grid grid-cols-2 gap-2 mt-1">
                 <Link href="/profile" className="text-center py-1.5 bg-slate-700 hover:bg-slate-600 rounded text-slate-200 transition-colors">
-                    Profile
+                    Profil
                 </Link>
                 <button onClick={logout} className="text-center py-1.5 bg-red-900/30 hover:bg-red-900/50 text-red-400 rounded transition-colors">
-                    Logout
+                    Keluar
                 </button>
             </div>
           </div>
@@ -99,11 +99,11 @@ export default function Sidebar({ children }: { children?: React.ReactNode }) {
           </button>
         </div>
         <nav className="p-4 space-y-2">
-          <NavItem to="/" icon={Home} label="Home" active={pathname === '/'} />
+          <NavItem to="/" icon={Home} label="Beranda" active={pathname === '/'} />
           <NavItem to="/dashboard" icon={LayoutDashboard} label="Dashboard" active={pathname === '/dashboard'} />
-          <NavItem to="/clustering" icon={PieChart} label="K-Means Analysis" active={pathname === '/clustering'} />
-          <NavItem to="/data" icon={Database} label="Facility Data" active={pathname === '/data'} />
-          <NavItem to="/profile" icon={User} label="Profile" active={pathname === '/profile'} />
+          <NavItem to="/clustering" icon={PieChart} label="Analisis K-Means" active={pathname === '/clustering'} />
+          <NavItem to="/data" icon={Database} label="Data Fasilitas" active={pathname === '/data'} />
+          <NavItem to="/profile" icon={User} label="Profil" active={pathname === '/profile'} />
         </nav>
         <div className="p-4 border-t border-slate-700">
              <div className="flex items-center gap-3 px-2 mb-4">
@@ -113,7 +113,7 @@ export default function Sidebar({ children }: { children?: React.ReactNode }) {
                  </div>
              </div>
              <button onClick={logout} className="flex items-center gap-3 px-4 py-3 text-red-400 w-full hover:bg-slate-800 rounded-lg">
-                <LogOut size={20} /> Logout
+                <LogOut size={20} /> Keluar
              </button>
         </div>
       </aside>
@@ -126,8 +126,14 @@ export default function Sidebar({ children }: { children?: React.ReactNode }) {
               <Menu size={24} />
             </button>
             <h2 className="text-lg font-semibold text-slate-800">
-              {pathname === '/' ? 'Welcome' : 
-               pathname.split('/').pop()?.charAt(0).toUpperCase()! + pathname.split('/').pop()?.slice(1)!}
+              {(() => {
+                if (pathname === '/') return 'Selamat Datang';
+                if (pathname.includes('/dashboard')) return 'Dashboard';
+                if (pathname.includes('/clustering')) return 'Analisis Klaster';
+                if (pathname.includes('/data')) return 'Data Fasilitas';
+                if (pathname.includes('/profile')) return 'Profil Pengguna';
+                return 'Halaman';
+              })()}
             </h2>
           </div>
           <div className="flex items-center gap-3 relative">
@@ -149,10 +155,10 @@ export default function Sidebar({ children }: { children?: React.ReactNode }) {
                             <p className="text-xs text-slate-500 truncate">{user?.email}</p>
                         </div>
                         <Link href="/profile" className="block px-4 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-blue-600">
-                            Account Settings
+                            Pengaturan Akun
                         </Link>
                         <button onClick={logout} className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
-                            Sign Out
+                            Keluar
                         </button>
                     </div>
                  </>

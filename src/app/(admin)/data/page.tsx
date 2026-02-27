@@ -10,7 +10,7 @@ import { Search, Plus, Trash2, Edit2, Filter, MapPin, Image as ImageIcon, X } fr
 // Lazy load LocationPicker to avoid SSR issues with Leaflet
 const LocationPicker = dynamic(() => import('../../../components/LocationPicker'), {
   ssr: false,
-  loading: () => <div className="h-full w-full bg-slate-100 flex items-center justify-center text-slate-400">Loading Map...</div>
+  loading: () => <div className="h-full w-full bg-slate-100 flex items-center justify-center text-slate-400">Memuat Peta...</div>
 });
 
 export default function FacilitiesPage() {
@@ -26,7 +26,7 @@ export default function FacilitiesPage() {
     category: Object.values(FacilityCategory)[0] as string,
     villageId: VILLAGES[0].id,
     year: new Date().getFullYear(),
-    condition: 'Good' as string,
+    condition: 'Baik' as string,
     lat: VILLAGES[0].center.lat,
     lng: VILLAGES[0].center.lng,
     photo: ''
@@ -39,7 +39,7 @@ export default function FacilitiesPage() {
     return matchesSearch && matchesVillage;
   });
 
-  const getVillageName = (id: string) => VILLAGES.find(v => v.id === id)?.name || 'Unknown';
+  const getVillageName = (id: string) => VILLAGES.find(v => v.id === id)?.name || 'Tidak Diketahui';
   
   const getFacilityCount = (villageId: string) => facilities.filter(f => f.villageId === villageId).length;
 
@@ -51,7 +51,7 @@ export default function FacilitiesPage() {
         category: Object.values(FacilityCategory)[0],
         villageId: VILLAGES[0].id,
         year: new Date().getFullYear(),
-        condition: 'Good',
+        condition: 'Baik',
         lat: VILLAGES[0].center.lat,
         lng: VILLAGES[0].center.lng,
         photo: ''
@@ -86,7 +86,7 @@ export default function FacilitiesPage() {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) { 
-        alert("File size exceeds 5MB");
+        alert("Ukuran file melebihi 5MB");
         return;
       }
       const reader = new FileReader();
@@ -124,7 +124,7 @@ export default function FacilitiesPage() {
         id: editingId || `new_${Date.now()}`,
         name: formData.name,
         category: formData.category as FacilityCategory,
-        condition: formData.condition as 'Good' | 'Fair' | 'Poor',
+        condition: formData.condition as 'Baik' | 'Cukup' | 'Buruk',
         yearBuilt: Number(formData.year),
         villageId: formData.villageId,
         lat: Number(formData.lat),
@@ -144,14 +144,14 @@ export default function FacilitiesPage() {
     <div className="space-y-6">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-            <h1 className="text-2xl font-bold text-slate-800">Facility Management</h1>
-            <p className="text-slate-500">Manage database of infrastructure in Aek Kuasan.</p>
+            <h1 className="text-2xl font-bold text-slate-800">Manajemen Fasilitas</h1>
+            <p className="text-slate-500">Kelola basis data infrastruktur di Aek Kuasan.</p>
         </div>
         <button 
             onClick={openAddModal}
             className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2.5 rounded-lg flex items-center gap-2 transition-colors shadow-sm"
         >
-            <Plus size={18} /> Add Facility
+            <Plus size={18} /> Tambah Fasilitas
         </button>
       </div>
 
@@ -161,7 +161,7 @@ export default function FacilitiesPage() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
             <input 
                 type="text" 
-                placeholder="Search facility name..." 
+                placeholder="Cari nama fasilitas..." 
                 className="w-full pl-10 pr-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
@@ -174,7 +174,7 @@ export default function FacilitiesPage() {
                 value={filterVillage}
                 onChange={(e) => setFilterVillage(e.target.value)}
              >
-                 <option value="all">All Villages ({facilities.length})</option>
+                 <option value="all">Semua Desa ({facilities.length})</option>
                  {VILLAGES.map(v => (
                     <option key={v.id} value={v.id}>
                         {v.name} ({getFacilityCount(v.id)})
@@ -190,13 +190,13 @@ export default function FacilitiesPage() {
             <table className="w-full text-left border-collapse">
                 <thead>
                     <tr className="bg-slate-50 border-b border-slate-200 text-slate-500 text-xs uppercase font-semibold">
-                        <th className="p-4 pl-6">Photo</th>
-                        <th className="p-4">Facility Name</th>
-                        <th className="p-4">Category</th>
-                        <th className="p-4">Location (Village)</th>
-                        <th className="p-4">Condition</th>
-                        <th className="p-4">Year</th>
-                        <th className="p-4 text-right pr-6">Actions</th>
+                        <th className="p-4 pl-6">Foto</th>
+                        <th className="p-4">Nama Fasilitas</th>
+                        <th className="p-4">Kategori</th>
+                        <th className="p-4">Lokasi (Desa)</th>
+                        <th className="p-4">Kondisi</th>
+                        <th className="p-4">Tahun</th>
+                        <th className="p-4 text-right pr-6">Aksi</th>
                     </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-100">
@@ -227,12 +227,12 @@ export default function FacilitiesPage() {
                             </td>
                             <td className="p-4">
                                 <span className={`inline-flex items-center gap-1.5 ${
-                                    facility.condition === 'Good' ? 'text-green-600' : 
-                                    facility.condition === 'Poor' ? 'text-red-600' : 'text-yellow-600'
+                                    facility.condition === 'Baik' ? 'text-green-600' : 
+                                    facility.condition === 'Buruk' ? 'text-red-600' : 'text-yellow-600'
                                 }`}>
                                     <span className={`w-1.5 h-1.5 rounded-full ${
-                                        facility.condition === 'Good' ? 'bg-green-600' : 
-                                        facility.condition === 'Poor' ? 'bg-red-600' : 'bg-yellow-600'
+                                        facility.condition === 'Baik' ? 'bg-green-600' : 
+                                        facility.condition === 'Buruk' ? 'bg-red-600' : 'bg-yellow-600'
                                     }`}></span>
                                     {facility.condition}
                                 </span>
@@ -242,14 +242,14 @@ export default function FacilitiesPage() {
                                 <button 
                                     onClick={() => handleEditClick(facility)}
                                     className="p-2 text-slate-400 hover:text-blue-600 transition-colors rounded hover:bg-blue-50"
-                                    title="Edit Facility"
+                                    title="Edit Fasilitas"
                                 >
                                     <Edit2 size={16} />
                                 </button>
                                 <button 
                                     onClick={() => deleteFacility(facility.id)}
                                     className="p-2 text-slate-400 hover:text-red-600 transition-colors rounded hover:bg-red-50"
-                                    title="Delete Facility"
+                                    title="Hapus Fasilitas"
                                 >
                                     <Trash2 size={16} />
                                 </button>
@@ -258,7 +258,7 @@ export default function FacilitiesPage() {
                     )) : (
                         <tr>
                             <td colSpan={7} className="p-8 text-center text-slate-500">
-                                No facilities found matching your criteria.
+                                Tidak ada fasilitas yang cocok dengan kriteria Anda.
                             </td>
                         </tr>
                     )}
@@ -266,10 +266,10 @@ export default function FacilitiesPage() {
             </table>
         </div>
         <div className="p-4 border-t border-slate-200 bg-slate-50 text-xs text-slate-500 flex justify-between items-center">
-            <span>Showing {filteredFacilities.length} of {facilities.length} entries</span>
+            <span>Menampilkan {filteredFacilities.length} dari {facilities.length} entri</span>
             <div className="flex gap-1">
-                <button className="px-3 py-1 rounded border border-slate-300 bg-white hover:bg-slate-50 disabled:opacity-50" disabled>Prev</button>
-                <button className="px-3 py-1 rounded border border-slate-300 bg-white hover:bg-slate-50">Next</button>
+                <button className="px-3 py-1 rounded border border-slate-300 bg-white hover:bg-slate-50 disabled:opacity-50" disabled>Seb</button>
+                <button className="px-3 py-1 rounded border border-slate-300 bg-white hover:bg-slate-50">Sel</button>
             </div>
         </div>
       </div>
@@ -280,7 +280,7 @@ export default function FacilitiesPage() {
             <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg animate-in fade-in zoom-in duration-200 max-h-[90vh] overflow-y-auto">
                 <div className="p-6 border-b border-slate-100 flex justify-between items-center sticky top-0 bg-white z-10">
                     <h3 className="text-lg font-bold text-slate-800">
-                        {editingId ? 'Edit Facility' : 'New Facility'}
+                        {editingId ? 'Edit Fasilitas' : 'Fasilitas Baru'}
                     </h3>
                     <button onClick={() => setIsModalOpen(false)}><span className="text-2xl text-slate-400">&times;</span></button>
                 </div>
@@ -288,7 +288,7 @@ export default function FacilitiesPage() {
                     
                     {/* Photo Upload */}
                     <div className="space-y-2">
-                        <label className="block text-sm font-medium text-slate-700">Facility Photo</label>
+                        <label className="block text-sm font-medium text-slate-700">Foto Fasilitas</label>
                         <div className="flex items-center gap-4">
                             <div className="w-20 h-20 rounded-lg bg-slate-100 border-2 border-dashed border-slate-300 flex items-center justify-center overflow-hidden relative shrink-0 group">
                                 {formData.photo ? (
@@ -298,7 +298,7 @@ export default function FacilitiesPage() {
                                             type="button"
                                             onClick={() => setFormData(prev => ({ ...prev, photo: '' }))}
                                             className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity text-white"
-                                            title="Remove photo"
+                                            title="Hapus foto"
                                         >
                                             <X size={20} />
                                         </button>
@@ -309,7 +309,7 @@ export default function FacilitiesPage() {
                             </div>
                             <div className="flex-1">
                                 <label className="block w-full">
-                                    <span className="sr-only">Choose profile photo</span>
+                                    <span className="sr-only">Pilih foto profil</span>
                                     <input 
                                         type="file" 
                                         accept="image/*"
@@ -322,24 +322,24 @@ export default function FacilitiesPage() {
                                         hover:file:bg-blue-100 cursor-pointer"
                                     />
                                 </label>
-                                <p className="text-xs text-slate-400 mt-1">Supported formats: JPG, PNG. Max size: 5MB</p>
+                                <p className="text-xs text-slate-400 mt-1">Format yang didukung: JPG, PNG. Ukuran maks: 5MB</p>
                             </div>
                         </div>
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Name</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Nama</label>
                         <input 
                             name="name" 
                             required 
                             className="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none" 
-                            placeholder="e.g., SD Negeri 1" 
+                            placeholder="cth., SD Negeri 1" 
                             value={formData.name}
                             onChange={handleInputChange}
                         />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Category</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Kategori</label>
                         <select 
                             name="category" 
                             className="w-full border rounded-lg px-3 py-2"
@@ -350,7 +350,7 @@ export default function FacilitiesPage() {
                         </select>
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1">Village</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1">Desa</label>
                         <select 
                             name="villageId" 
                             className="w-full border rounded-lg px-3 py-2"
@@ -363,7 +363,7 @@ export default function FacilitiesPage() {
 
                     {/* Map Picker */}
                     <div className="space-y-2">
-                        <label className="block text-sm font-medium text-slate-700">Location (Drag marker to adjust)</label>
+                        <label className="block text-sm font-medium text-slate-700">Lokasi (Geser penanda untuk menyesuaikan)</label>
                         <div className="h-48 w-full rounded-lg overflow-hidden border border-slate-300 relative z-0">
                             {isModalOpen && (
                                 <LocationPicker 
@@ -384,7 +384,7 @@ export default function FacilitiesPage() {
 
                     <div className="grid grid-cols-2 gap-4">
                          <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Latitude</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">Lintang</label>
                             <input 
                                 name="lat" 
                                 type="number" 
@@ -396,7 +396,7 @@ export default function FacilitiesPage() {
                             />
                         </div>
                         <div>
-                            <label className="block text-sm font-medium text-slate-700 mb-1">Longitude</label>
+                            <label className="block text-sm font-medium text-slate-700 mb-1">Bujur</label>
                             <input 
                                 name="lng" 
                                 type="number" 
@@ -411,7 +411,7 @@ export default function FacilitiesPage() {
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                             <label className="block text-sm font-medium text-slate-700 mb-1">Year Built</label>
+                             <label className="block text-sm font-medium text-slate-700 mb-1">Tahun Dibangun</label>
                              <input 
                                 name="year" 
                                 type="number" 
@@ -421,23 +421,23 @@ export default function FacilitiesPage() {
                              />
                         </div>
                         <div>
-                             <label className="block text-sm font-medium text-slate-700 mb-1">Condition</label>
+                             <label className="block text-sm font-medium text-slate-700 mb-1">Kondisi</label>
                              <select 
                                 name="condition" 
                                 className="w-full border rounded-lg px-3 py-2"
                                 value={formData.condition}
                                 onChange={handleInputChange}
                              >
-                                <option value="Good">Good</option>
-                                <option value="Fair">Fair</option>
-                                <option value="Poor">Poor</option>
+                                <option value="Baik">Baik</option>
+                                <option value="Cukup">Cukup</option>
+                                <option value="Buruk">Buruk</option>
                              </select>
                         </div>
                     </div>
                     <div className="pt-4 flex gap-3">
-                        <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 px-4 py-2 border rounded-lg text-slate-700 hover:bg-slate-50">Cancel</button>
+                        <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 px-4 py-2 border rounded-lg text-slate-700 hover:bg-slate-50">Batal</button>
                         <button type="submit" className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                            {editingId ? 'Update Record' : 'Save Record'}
+                            {editingId ? 'Perbarui Data' : 'Simpan Data'}
                         </button>
                     </div>
                 </form>

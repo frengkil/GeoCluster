@@ -12,23 +12,25 @@ export const VILLAGES: Village[] = [
 ];
 
 export const CLUSTER_COLORS = [
-  '#ef4444', // red
-  '#3b82f6', // blue
-  '#22c55e', // green
-  '#eab308', // yellow
-  '#a855f7', // purple
-  '#ec4899', // pink
-  '#f97316', // orange
-  '#06b6d4', // cyan
+  '#2563eb', // Blue 600 - Primary
+  '#ea580c', // Orange 600 - Distinct from Blue
+  '#16a34a', // Green 600 - Distinct from Red/Orange
+  '#9333ea', // Purple 600 - Distinct
+  '#dc2626', // Red 600 - High alert
+  '#0891b2', // Cyan 600 - Distinct from Blue/Green
+  '#db2777', // Pink 600 - Distinct from Red/Purple
+  '#ca8a04', // Yellow 600 - Distinct
+  '#4f46e5', // Indigo 600 - Deep Blue/Purple
+  '#059669', // Emerald 600 - Deep Green
 ];
 
 export const CATEGORY_COLORS: Record<string, string> = {
-  Education: '#3b82f6', // blue
-  Health: '#ef4444', // red
-  Religious: '#a855f7', // purple
-  Government: '#64748b', // slate
-  Transport: '#f97316', // orange
-  Commercial: '#22c55e', // green
+  Pendidikan: '#3b82f6', // blue
+  Kesehatan: '#ef4444', // red
+  Keagamaan: '#a855f7', // purple
+  Pemerintahan: '#64748b', // slate
+  Transportasi: '#f97316', // orange
+  Komersial: '#22c55e', // green
 };
 
 // Helper to generate random facilities around villages
@@ -48,11 +50,11 @@ const generateMockFacilities = (): Facility[] => {
       const categoryKeys = Object.values(FacilityCategory);
       const category = categoryKeys[Math.floor(Math.random() * categoryKeys.length)];
       
-      const conditions = ['Good', 'Fair', 'Poor'] as const;
+      const conditions = ['Baik', 'Cukup', 'Buruk'] as const;
 
       facilities.push({
         id: `f${idCounter++}`,
-        name: `${category} Unit ${idCounter} - ${village.name}`,
+        name: `Unit ${category} ${idCounter} - ${village.name}`,
         category: category,
         lat: village.center.lat + latOffset,
         lng: village.center.lng + lngOffset,

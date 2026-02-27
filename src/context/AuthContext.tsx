@@ -21,7 +21,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 // Mock initial user
 const DEFAULT_ADMIN: User = {
   id: 'u1',
-  name: 'Admin User',
+  name: 'Pengguna Admin',
   email: 'admin@geocluster.com',
   role: 'admin'
 };

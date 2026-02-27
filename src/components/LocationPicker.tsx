@@ -86,8 +86,8 @@ const DraggableMarker = ({
                     />
                 </div>
             )}
-            <h4 className="font-bold text-slate-800 text-sm mb-1">{facilityName || "New Facility"}</h4>
-            <p className="text-xs text-slate-600">Village: <span className="font-semibold">{villageName}</span></p>
+            <h4 className="font-bold text-slate-800 text-sm mb-1">{facilityName || "Fasilitas Baru"}</h4>
+            <p className="text-xs text-slate-600">Desa: <span className="font-semibold">{villageName}</span></p>
             <p className="text-[10px] text-slate-400 mt-1">({lat.toFixed(5)}, {lng.toFixed(5)})</p>
         </div>
       </Popup>
@@ -108,11 +108,12 @@ interface LocationPickerProps {
     };
 }
 
-const getVillageName = (id: string) => VILLAGES.find(v => v.id === id)?.name || 'Unknown';
+const getVillageName = (id: string) => VILLAGES.find(v => v.id === id)?.name || 'Tidak Diketahui';
 
 export default function LocationPicker({ lat, lng, onChange, facilities, editingId, formData }: LocationPickerProps) {
     return (
         <MapContainer 
+            key="location-picker-map"
             center={[lat, lng]} 
             zoom={14} 
             style={{ height: '100%', width: '100%' }}
@@ -124,7 +125,7 @@ export default function LocationPicker({ lat, lng, onChange, facilities, editing
                     />
                 </LayersControl.BaseLayer>
 
-                <LayersControl.Overlay checked name="Other Facilities">
+                <LayersControl.Overlay checked name="Fasilitas Lain">
                     <LayerGroup>
                         {facilities.filter(f => f.id !== editingId).map(f => (
                             <CircleMarker 
@@ -144,7 +145,7 @@ export default function LocationPicker({ lat, lng, onChange, facilities, editing
                     </LayerGroup>
                 </LayersControl.Overlay>
 
-                <LayersControl.Overlay name="Village Centers">
+                <LayersControl.Overlay name="Pusat Desa">
                     <LayerGroup>
                         {VILLAGES.map(v => (
                             <CircleMarker 

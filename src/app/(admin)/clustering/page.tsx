@@ -12,7 +12,7 @@ import { Play, Download, Settings, RefreshCw } from 'lucide-react';
 // Dynamically import GisMap to avoid SSR issues
 const GisMap = dynamic(() => import('../../../components/GisMap'), {
   ssr: false,
-  loading: () => <div className="h-full w-full bg-slate-100 animate-pulse rounded-xl flex items-center justify-center text-slate-400">Loading Map...</div>
+  loading: () => <div className="h-full w-full bg-slate-100 animate-pulse rounded-xl flex items-center justify-center text-slate-400">Memuat Peta...</div>
 });
 
 export default function ClusteringPage() {
@@ -42,37 +42,37 @@ export default function ClusteringPage() {
 
     // 1. Summary Sheet
     const summaryData = clusters.map(c => ({
-      'Cluster ID': c.clusterId,
-      'Centroid Latitude': c.centroid.lat,
-      'Centroid Longitude': c.centroid.lng,
-      'Total Facilities': c.points.length,
-      'Color': c.color
+      'ID Klaster': c.clusterId,
+      'Lintang Titik Pusat': c.centroid.lat,
+      'Bujur Titik Pusat': c.centroid.lng,
+      'Total Fasilitas': c.points.length,
+      'Warna': c.color
     }));
     const wsSummary = XLSX.utils.json_to_sheet(summaryData);
-    XLSX.utils.book_append_sheet(wb, wsSummary, "Cluster Summary");
+    XLSX.utils.book_append_sheet(wb, wsSummary, "Ringkasan Klaster");
 
     // 2. Detailed Sheet
     const detailedData: any[] = [];
     clusters.forEach(c => {
       c.points.forEach(p => {
-        const villageName = VILLAGES.find(v => v.id === p.villageId)?.name || 'Unknown';
+        const villageName = VILLAGES.find(v => v.id === p.villageId)?.name || 'Tidak Diketahui';
         detailedData.push({
-          'Facility Name': p.name,
-          'Category': p.category,
-          'Village': villageName,
-          'Cluster ID': c.clusterId,
-          'Latitude': p.lat,
-          'Longitude': p.lng,
-          'Condition': p.condition,
-          'Year Built': p.yearBuilt
+          'Nama Fasilitas': p.name,
+          'Kategori': p.category,
+          'Desa': villageName,
+          'ID Klaster': c.clusterId,
+          'Lintang': p.lat,
+          'Bujur': p.lng,
+          'Kondisi': p.condition,
+          'Tahun Dibangun': p.yearBuilt
         });
       });
     });
     const wsDetails = XLSX.utils.json_to_sheet(detailedData);
-    XLSX.utils.book_append_sheet(wb, wsDetails, "Facility Details");
+    XLSX.utils.book_append_sheet(wb, wsDetails, "Detail Fasilitas");
 
     // Save file
-    XLSX.writeFile(wb, `AekKuasan_Clustering_Analysis_${new Date().toISOString().split('T')[0]}.xlsx`);
+    XLSX.writeFile(wb, `Analisis_Klasterisasi_AekKuasan_${new Date().toISOString().split('T')[0]}.xlsx`);
   };
 
   return (
@@ -82,15 +82,15 @@ export default function ClusteringPage() {
         <div>
             <h2 className="text-xl font-bold text-slate-800 flex items-center gap-2">
                 <Settings size={20} className="text-slate-400" />
-                Configuration
+                Konfigurasi
             </h2>
-            <p className="text-sm text-slate-500 mt-1">Adjust K-Means parameters</p>
+            <p className="text-sm text-slate-500 mt-1">Sesuaikan parameter K-Means</p>
         </div>
 
         <div className="space-y-4">
             <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">
-                    Number of Clusters (K): <span className="text-blue-600 font-bold">{kValue}</span>
+                    Jumlah Klaster (K): <span className="text-blue-600 font-bold">{kValue}</span>
                 </label>
                 <input 
                     type="range" 
@@ -117,27 +117,34 @@ export default function ClusteringPage() {
                 }`}
             >
                 {isCalculating ? (
-                    <><RefreshCw className="animate-spin" size={18} /> Processing...</>
+                    <><RefreshCw className="animate-spin" size={18} /> Memproses...</>
                 ) : (
-                    <><Play size={18} /> Run Analysis</>
+                    <><Play size={18} /> Jalankan Analisis</>
                 )}
             </button>
         </div>
 
         {showClusters && (
             <div className="flex-1">
-                <h3 className="font-semibold text-slate-800 mb-3 border-b pb-2">Analysis Results</h3>
-                <div className="space-y-3">
+                <h3 className="font-semibold text-slate-800 mb-3 border-b pb-2 flex justify-between items-center">
+                    <span>Hasil Analisis</span>
+                    <span className="text-xs font-normal text-slate-500 bg-slate-100 px-2 py-1 rounded-full">{clusters.length} Klaster</span>
+                </h3>
+                <div className="space-y-3 max-h-[400px] overflow-y-auto pr-1 custom-scrollbar">
                     {clusters.map((cluster) => (
-                        <div key={cluster.clusterId} className="bg-slate-50 p-3 rounded-lg border border-slate-100">
-                            <div className="flex items-center justify-between mb-1">
+                        <div key={cluster.clusterId} className="bg-slate-50 p-3 rounded-lg border border-slate-200 hover:border-blue-300 transition-colors group">
+                            <div className="flex items-center justify-between mb-2">
                                 <div className="flex items-center gap-2">
-                                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cluster.color }} />
-                                    <span className="font-medium text-slate-700">Cluster {cluster.clusterId}</span>
+                                    <div className="w-3 h-3 rounded-full ring-2 ring-white shadow-sm" style={{ backgroundColor: cluster.color }} />
+                                    <span className="font-bold text-slate-700 text-sm">Klaster {cluster.clusterId}</span>
                                 </div>
-                                <span className="text-xs bg-white px-2 py-1 rounded border text-slate-600 font-mono">
-                                    {cluster.points.length} Items
+                                <span className="text-xs bg-white px-2 py-0.5 rounded border border-slate-200 text-slate-600 font-mono font-medium shadow-sm">
+                                    {cluster.points.length} Item
                                 </span>
+                            </div>
+                            <div className="text-[10px] text-slate-500 font-mono bg-white/50 p-1.5 rounded border border-slate-100 flex justify-between items-center">
+                                <span>Titik Pusat:</span>
+                                <span className="text-slate-700">{cluster.centroid.lat.toFixed(4)}, {cluster.centroid.lng.toFixed(4)}</span>
                             </div>
                         </div>
                     ))}
@@ -147,7 +154,7 @@ export default function ClusteringPage() {
                     onClick={handleExportExcel}
                     className="w-full mt-6 flex items-center justify-center gap-2 border border-slate-300 text-slate-700 py-2 rounded-lg hover:bg-slate-50 transition-colors text-sm"
                 >
-                    <Download size={16} /> Export Report
+                    <Download size={16} /> Ekspor Laporan
                 </button>
             </div>
         )}
@@ -162,22 +169,7 @@ export default function ClusteringPage() {
             height="100%" 
         />
         
-        {/* Legend Overlay */}
-        <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur p-4 rounded-lg shadow-lg border border-slate-200 z-[400] max-w-xs">
-            <h4 className="text-xs font-bold text-slate-500 uppercase mb-2">Legend</h4>
-            <div className="space-y-2 text-sm">
-                <div className="flex items-center gap-2">
-                    <span className="w-3 h-3 rounded-full border-2 border-white ring-1 ring-blue-500 bg-blue-500"></span>
-                    <span>Facility Point</span>
-                </div>
-                {showClusters && (
-                    <div className="flex items-center gap-2">
-                        <span className="w-4 h-4 rounded-full border-2 border-white ring-1 ring-slate-400 bg-slate-400 opacity-50"></span>
-                        <span>Cluster Area (Centroid)</span>
-                    </div>
-                )}
-            </div>
-        </div>
+
       </div>
     </div>
   );

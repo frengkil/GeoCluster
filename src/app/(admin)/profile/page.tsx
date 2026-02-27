@@ -32,7 +32,7 @@ export default function ProfilePage() {
     const file = e.target.files?.[0];
     if (file) {
       if (file.size > 2 * 1024 * 1024) { // 2MB limit
-        setProfileMsg({ type: 'error', text: 'Image size should be less than 2MB.' });
+        setProfileMsg({ type: 'error', text: 'Ukuran gambar harus kurang dari 2MB.' });
         return;
       }
       const reader = new FileReader();
@@ -48,12 +48,12 @@ export default function ProfilePage() {
     setProfileMsg(null);
     
     if (!name.trim() || !email.trim()) {
-      setProfileMsg({ type: 'error', text: 'Name and Email are required.' });
+      setProfileMsg({ type: 'error', text: 'Nama dan Email wajib diisi.' });
       return;
     }
 
     updateProfile({ name, email, avatar });
-    setProfileMsg({ type: 'success', text: 'Profile updated successfully.' });
+    setProfileMsg({ type: 'success', text: 'Profil berhasil diperbarui.' });
     
     // Clear message after 3 seconds
     setTimeout(() => setProfileMsg(null), 3000);
@@ -64,31 +64,31 @@ export default function ProfilePage() {
     setPassMsg(null);
 
     if (newPass.length < 6) {
-      setPassMsg({ type: 'error', text: 'New password must be at least 6 characters.' });
+      setPassMsg({ type: 'error', text: 'Kata sandi baru minimal 6 karakter.' });
       return;
     }
 
     if (newPass !== confirmPass) {
-      setPassMsg({ type: 'error', text: 'New passwords do not match.' });
+      setPassMsg({ type: 'error', text: 'Kata sandi baru tidak cocok.' });
       return;
     }
 
     const success = await updatePassword(currentPass, newPass);
     if (success) {
-      setPassMsg({ type: 'success', text: 'Password changed successfully.' });
+      setPassMsg({ type: 'success', text: 'Kata sandi berhasil diubah.' });
       setCurrentPass('');
       setNewPass('');
       setConfirmPass('');
     } else {
-      setPassMsg({ type: 'error', text: 'Current password is incorrect.' });
+      setPassMsg({ type: 'error', text: 'Kata sandi saat ini salah.' });
     }
   };
 
   return (
     <div className="space-y-8 max-w-5xl mx-auto pb-10">
       <div>
-        <h1 className="text-3xl font-bold text-slate-800 tracking-tight">Account Settings</h1>
-        <p className="text-slate-500 mt-1">Manage your personal information and security preferences.</p>
+        <h1 className="text-3xl font-bold text-slate-800 tracking-tight">Pengaturan Akun</h1>
+        <p className="text-slate-500 mt-1">Kelola informasi pribadi dan preferensi keamanan Anda.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -106,8 +106,8 @@ export default function ProfilePage() {
                         </div>
                     )}
                 </div>
-                <h2 className="font-bold text-lg text-slate-800">{name || 'User'}</h2>
-                <p className="text-sm text-slate-500">{email || 'No email'}</p>
+                <h2 className="font-bold text-lg text-slate-800">{name || 'Pengguna'}</h2>
+                <p className="text-sm text-slate-500">{email || 'Tidak ada email'}</p>
                 <div className="mt-4 pt-4 border-t border-slate-100 flex justify-center gap-2">
                     <span className="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full uppercase tracking-wider">
                         {user?.role || 'Admin'}
@@ -125,8 +125,8 @@ export default function ProfilePage() {
                     <UserIcon size={20} />
                 </div>
                 <div>
-                    <h2 className="font-bold text-slate-800">Profile Information</h2>
-                    <p className="text-xs text-slate-500">Update your account details and public profile.</p>
+                    <h2 className="font-bold text-slate-800">Informasi Profil</h2>
+                    <p className="text-xs text-slate-500">Perbarui detail akun dan profil publik Anda.</p>
                 </div>
             </div>
             
@@ -160,24 +160,24 @@ export default function ProfilePage() {
                                 type="button"
                                 onClick={() => setAvatar('')}
                                 className="absolute -top-1 -right-1 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 shadow-sm border border-white"
-                                title="Remove photo"
+                                title="Hapus foto"
                             >
                                 <X size={10} />
                             </button>
                         )}
                     </div>
                     <div className="text-center sm:text-left flex-1">
-                        <h3 className="font-medium text-slate-900">Profile Photo</h3>
+                        <h3 className="font-medium text-slate-900">Foto Profil</h3>
                         <p className="text-xs text-slate-500 mt-1">
-                            This will be displayed on your profile and in the sidebar. <br/>
-                            Max size 2MB. Supported formats: JPG, PNG.
+                            Ini akan ditampilkan di profil Anda dan di sidebar. <br/>
+                            Ukuran maks 2MB. Format yang didukung: JPG, PNG.
                         </p>
                     </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1.5">Full Name</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1.5">Nama Lengkap</label>
                         <div className="relative">
                         <UserIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                         <input 
@@ -190,7 +190,7 @@ export default function ProfilePage() {
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-slate-700 mb-1.5">Email Address</label>
+                        <label className="block text-sm font-medium text-slate-700 mb-1.5">Alamat Email</label>
                         <div className="relative">
                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
                         <input 
@@ -208,7 +208,7 @@ export default function ProfilePage() {
                     type="submit" 
                     className="bg-blue-600 text-white px-6 py-2.5 rounded-xl hover:bg-blue-700 transition-colors flex items-center gap-2 text-sm font-semibold shadow-sm shadow-blue-200"
                     >
-                    <Save size={18} /> Save Changes
+                    <Save size={18} /> Simpan Perubahan
                     </button>
                 </div>
                 </form>
@@ -222,8 +222,8 @@ export default function ProfilePage() {
                     <Lock size={20} />
                 </div>
                 <div>
-                    <h2 className="font-bold text-slate-800">Security</h2>
-                    <p className="text-xs text-slate-500">Change your password and security settings.</p>
+                    <h2 className="font-bold text-slate-800">Keamanan</h2>
+                    <p className="text-xs text-slate-500">Ubah kata sandi dan pengaturan keamanan Anda.</p>
                 </div>
             </div>
             
@@ -239,7 +239,7 @@ export default function ProfilePage() {
 
                 <form onSubmit={handlePasswordUpdate} className="space-y-4 max-w-lg">
                 <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1.5">Current Password</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-1.5">Kata Sandi Saat Ini</label>
                     <input 
                     type="password" 
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
@@ -250,18 +250,18 @@ export default function ProfilePage() {
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1.5">New Password</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-1.5">Kata Sandi Baru</label>
                     <input 
                     type="password" 
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
-                    placeholder="Minimum 6 characters"
+                    placeholder="Minimal 6 karakter"
                     value={newPass}
                     onChange={(e) => setNewPass(e.target.value)}
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1.5">Confirm New Password</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-1.5">Konfirmasi Kata Sandi Baru</label>
                     <input 
                     type="password" 
                     className="w-full px-4 py-2.5 rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all"
@@ -276,7 +276,7 @@ export default function ProfilePage() {
                     type="submit" 
                     className="bg-slate-800 text-white px-6 py-2.5 rounded-xl hover:bg-slate-900 transition-colors flex items-center gap-2 text-sm font-semibold shadow-sm"
                     >
-                    <Lock size={18} /> Update Password
+                    <Lock size={18} /> Perbarui Kata Sandi
                     </button>
                 </div>
                 </form>

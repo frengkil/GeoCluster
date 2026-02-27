@@ -34,7 +34,7 @@ export default function LoginPage() {
       // explicitly replacing here ensures immediate feedback.
       router.replace('/dashboard');
     } else {
-      setError('Invalid email or password');
+      setError('Email atau kata sandi salah');
       setIsSubmitting(false);
     }
   };
@@ -65,10 +65,10 @@ export default function LoginPage() {
             
             <div className="space-y-6 max-w-lg mt-12">
                 <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
-                    Spatial Intelligence for <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Infrastructure</span>
+                    Kecerdasan Spasial untuk <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Infrastruktur</span>
                 </h1>
                 <p className="text-slate-400 text-lg leading-relaxed">
-                    Access the Aek Kuasan GIS platform to visualize facility distribution, run K-Means clustering analysis, and generate data-driven insights.
+                    Akses platform GIS Aek Kuasan untuk memvisualisasikan distribusi fasilitas, menjalankan analisis klasterisasi K-Means, dan menghasilkan wawasan berbasis data.
                 </p>
             </div>
         </div>
@@ -89,15 +89,15 @@ export default function LoginPage() {
             </div>
 
             <div className="text-center lg:text-left">
-                <h2 className="text-3xl font-bold text-slate-900">Welcome Back</h2>
-                <p className="text-slate-500 mt-2">Please enter your credentials to access the dashboard.</p>
+                <h2 className="text-3xl font-bold text-slate-900">Selamat Datang Kembali</h2>
+                <p className="text-slate-500 mt-2">Silakan masukkan kredensial Anda untuk mengakses dashboard.</p>
             </div>
 
             {/* Demo Credentials Hint */}
             <div className="p-4 bg-blue-50 border border-blue-100 rounded-xl flex items-start gap-3">
                 <Info className="text-blue-600 shrink-0 mt-0.5" size={20} />
                 <div className="text-sm text-blue-900">
-                    <p className="font-semibold mb-1">Demo Access:</p>
+                    <p className="font-semibold mb-1">Akses Demo:</p>
                     <div className="grid grid-cols-2 gap-x-8 gap-y-1 mt-1 font-mono text-xs opacity-80">
                         <span>User: admin@geocluster.com</span>
                         <span>Pass: admin123</span>
@@ -114,7 +114,7 @@ export default function LoginPage() {
 
             <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="space-y-1.5">
-                    <label className="block text-sm font-medium text-slate-700">Email Address</label>
+                    <label className="block text-sm font-medium text-slate-700">Alamat Email</label>
                     <div className="relative group">
                         <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" size={18} />
                         <input 
@@ -130,8 +130,8 @@ export default function LoginPage() {
 
                 <div className="space-y-1.5">
                     <div className="flex justify-between items-center">
-                        <label className="block text-sm font-medium text-slate-700">Password</label>
-                        <a href="#" className="text-xs font-medium text-blue-600 hover:text-blue-700">Forgot password?</a>
+                        <label className="block text-sm font-medium text-slate-700">Kata Sandi</label>
+                        <a href="#" className="text-xs font-medium text-blue-600 hover:text-blue-700">Lupa kata sandi?</a>
                     </div>
                     <div className="relative group">
                         <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-blue-600 transition-colors" size={18} />
@@ -152,8 +152,8 @@ export default function LoginPage() {
                         disabled={isSubmitting}
                         className={`w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3.5 rounded-xl flex items-center justify-center gap-2 transition-all shadow-lg shadow-blue-600/20 active:scale-[0.98] ${isSubmitting ? 'opacity-70 cursor-wait' : ''}`}
                     >
-                        {isSubmitting ? 'Authenticating...' : (
-                            <>Sign In <ArrowRight size={18} /></>
+                        {isSubmitting ? 'Mengautentikasi...' : (
+                            <>Masuk <ArrowRight size={18} /></>
                         )}
                     </button>
                 </div>
@@ -161,7 +161,7 @@ export default function LoginPage() {
 
             <div className="text-center pt-4 border-t border-slate-100">
                 <p className="text-sm text-slate-500">
-                    Don't have an account? <Link href="/signup" className="text-blue-600 font-medium hover:underline">Create Account</Link>
+                    Belum punya akun? <Link href="/signup" className="text-blue-600 font-medium hover:underline">Buat Akun</Link>
                 </p>
             </div>
         </div>

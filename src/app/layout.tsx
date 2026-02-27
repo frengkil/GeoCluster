@@ -17,7 +17,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: 'GeoCluster Aek Kuasan',
-  description: 'GIS Analysis System',
+  description: 'Sistem Analisis GIS',
 };
 
 export default function RootLayout({
@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
+    <html lang="id" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-slate-50 min-h-screen font-sans">
         <AuthProvider>
           {children}

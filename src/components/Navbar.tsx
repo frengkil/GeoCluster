@@ -25,10 +25,10 @@ export default function Navbar() {
           ) : (
             <>
               <Link href="/login" className="text-slate-600 hover:text-blue-600 font-medium text-sm transition-colors">
-                Sign In
+                Masuk
               </Link>
               <Link href="/signup" className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full text-sm font-medium transition-colors shadow-lg shadow-blue-600/20">
-                Get Started
+                Mulai Sekarang
               </Link>
             </>
           )}

@@ -5,12 +5,12 @@ export interface Coordinate {
 }
 
 export enum FacilityCategory {
-  EDUCATION = 'Education',
-  HEALTH = 'Health',
-  RELIGIOUS = 'Religious',
-  GOVERNMENT = 'Government',
-  TRANSPORT = 'Transport',
-  COMMERCIAL = 'Commercial'
+  EDUCATION = 'Pendidikan',
+  HEALTH = 'Kesehatan',
+  RELIGIOUS = 'Keagamaan',
+  GOVERNMENT = 'Pemerintahan',
+  TRANSPORT = 'Transportasi',
+  COMMERCIAL = 'Komersial'
 }
 
 export interface Village {
@@ -27,7 +27,7 @@ export interface Facility {
   lng: number;
   villageId: string;
   yearBuilt: number;
-  condition: 'Good' | 'Fair' | 'Poor';
+  condition: 'Baik' | 'Cukup' | 'Buruk';
   clusterId?: number; // Assigned after K-Means
   photoUrl?: string;
 }
